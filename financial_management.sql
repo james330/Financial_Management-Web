@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
--- 產生時間： 2022-05-14 20:12:48
+-- 產生時間： 2022-05-17 19:23:21
 -- 伺服器版本： 10.4.13-MariaDB
 -- PHP 版本： 7.4.7
 
@@ -35,13 +35,6 @@ CREATE TABLE `icome` (
   `salary` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- 傾印資料表的資料 `icome`
---
-
-INSERT INTO `icome` (`UID`, `input_time`, `work_name`, `work_time`, `salary`) VALUES
-(1, '2022-05-10 02:02:25', '咖啡店打工', '2022-05-10', 2000);
-
 -- --------------------------------------------------------
 
 --
@@ -52,14 +45,6 @@ CREATE TABLE `item_pro` (
   `Item_id` int(255) NOT NULL,
   `properties_name` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- 傾印資料表的資料 `item_pro`
---
-
-INSERT INTO `item_pro` (`Item_id`, `properties_name`) VALUES
-(1, '食'),
-(2, '衣');
 
 -- --------------------------------------------------------
 
@@ -74,13 +59,6 @@ CREATE TABLE `living` (
   `item_name` varchar(32) NOT NULL,
   `cost` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- 傾印資料表的資料 `living`
---
-
-INSERT INTO `living` (`UID`, `input_time`, `Item_id`, `item_name`, `cost`) VALUES
-(2, '2022-05-10 02:02:25', 1, '拉麵', 200);
 
 -- --------------------------------------------------------
 
@@ -100,8 +78,7 @@ CREATE TABLE `user_info` (
 --
 
 INSERT INTO `user_info` (`UID`, `account`, `password`, `email`) VALUES
-(1, 'james', '1', 'james@gmail'),
-(2, 'apple', '02', NULL);
+(0, 'james', 'apple', 'james@gmail');
 
 --
 -- 已傾印資料表的索引
@@ -140,13 +117,13 @@ ALTER TABLE `user_info`
 -- 資料表的限制式 `icome`
 --
 ALTER TABLE `icome`
-  ADD CONSTRAINT `icome_ibfk_1` FOREIGN KEY (`UID`) REFERENCES `user_info` (`UID`);
+  ADD CONSTRAINT `icome_ibfk_1` FOREIGN KEY (`UID`) REFERENCES `user_info` (`UID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- 資料表的限制式 `living`
 --
 ALTER TABLE `living`
-  ADD CONSTRAINT `living_ibfk_1` FOREIGN KEY (`UID`) REFERENCES `user_info` (`UID`),
+  ADD CONSTRAINT `living_ibfk_1` FOREIGN KEY (`UID`) REFERENCES `user_info` (`UID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `living_ibfk_2` FOREIGN KEY (`Item_id`) REFERENCES `item_pro` (`Item_id`);
 COMMIT;
 
